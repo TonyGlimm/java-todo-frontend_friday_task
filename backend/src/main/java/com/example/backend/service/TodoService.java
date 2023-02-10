@@ -25,7 +25,7 @@ public class TodoService {
 
     public Todo addTodo(Todo todo){
         Todo todoToAdd = new Todo(
-              idService.generateId(),
+              idService.generateId(), //wanted to try out uuid since i didnt yesterday. it worked, URL`s look awful though
                 todo.description(),
                 todo.status()
         );
@@ -38,7 +38,20 @@ public class TodoService {
 
     public Todo getTodoById(String id){
         return todoRepo.getTodoById(id)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(NoSuchElementException::new); //found this syntax online, no idea yet how it works or why but seems to work
+    }
+
+    public Todo updateTodo(String id, Todo todo){
+        Todo todoToUpdate = new Todo(
+                id,
+                todo.description(),
+                todo.status()
+        );
+        return todoRepo.updateTodo(id, todoToUpdate);
+    }
+
+    public void deleteTodo(String id){
+        todoRepo.deleteTodo(id);
     }
 
 }
